@@ -1,0 +1,54 @@
+create table writinggroup(
+    groupname varchar(30) not null,
+    headwriter varchar(30) not null,
+    yearformed integer not null,
+    subject varchar(30),
+    constraint writinggroup_pk primary key (groupname));
+
+create table publisher(
+    publishername varchar(30) not null,
+    publisheraddress varchar(40) not null,
+    publisherphone varchar(15) not null,
+    publisheremail varchar(30) not null,
+    constraint publisher_pk primary key (publishername));
+
+create table books(
+    groupname varchar(30) not null,
+    booktitle varchar(30) not null,
+    publishername varchar(30) not null,
+    yearpublished integer not null,
+    numberpages integer not null,
+    constraint books_pk primary key (groupname, booktitle, publishername),
+    constraint writinggroup_fk foreign key (groupname)
+    references writinggroup(groupname),
+    constraint publisher_fk foreign key (publishername)
+    references publisher(publishername));
+
+insert into publisher(publishername, publisheraddress, publisherphone, publisheremail)
+values ('Black Library', '9988 Oklahoma st Watertown, MA 02472', '(424) 384 8274', 'blackbooks@bmail.com'),
+    ('Century', '7909 aspen ln Faye, NC 28303', '(836) 837 8274', 'centurypublishing@bmail.com'),
+    ('Island Press', '14 West Piper Dr Eastpoint, MI 48021', '(353) 385 3869', 'islandpress@bmail.com');
+
+insert into writinggroup (groupname, headwriter, yearformed, subject)
+values ('Pacific Writers Assoc.', 'Harley Holden', 1998, 'all genres'),
+    ('New England Scifi Assc', 'Oscar Soler', 2001, 'scifi'),
+    ('Kansas City Writers', 'Aliza Lambert', 1980, 'all genres'),
+    ('Childrens Author Guild', 'Alijah Knight', 1995, 'childrens books');
+
+insert into books(groupname, booktitle, publishername, yearpublished, numberpages)
+values ('Pacific Writers Assoc.', 'The definitive Poe', 'Black Library', 2001, 130),
+    ('Pacific Writers Assoc.', 'Sharing season', 'Century', 2005, 75),
+    ('Pacific Writers Assoc.', 'The ruins of nine', 'Black Library', 1999, 326),
+    ('Pacific Writers Assoc.', 'The Solitary Cradle', 'Black Library', 2007, 402),
+    ('New England Scifi Assc','Enders Game', 'Black Library', 2002, 149),
+    ('New England Scifi Assc','Mists of Polaris', 'Century', 2004, 284),
+    ('New England Scifi Assc','The Edge of Tommorow', 'Century', 2008, 362),
+    ('New England Scifi Assc','2466: Deliverance', 'Island Press', 2005, 285),
+    ('Kansas City Writers', 'Cries of the Mute', 'Island Press', 1984, 275),
+    ('Kansas City Writers', 'Owl in the Mist', 'Island Press', 1987, 372),
+    ('Kansas City Writers', 'Caged Duty', 'Island Press', 1984, 268),
+    ('Kansas City Writers', 'Caged Duty', 'Black Library', 1998, 269),
+    ('Childrens Author Guild', 'A very Busy Bee', 'Island Press', 1995, 16),
+    ('Childrens Author Guild', 'Case of the Gaint Sock', 'Island Press', 2000, 32),
+    ('Childrens Author Guild', 'Mr Silver Fox', 'Century', 1997, 48),
+    ('Childrens Author Guild', 'The Owl and the Frog', 'Island Press', 2003, 23);
